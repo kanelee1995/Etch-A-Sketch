@@ -14,7 +14,7 @@
 
   <button id=clear onclick="reset()">Clear</button>
 
-  <div id="container">
+  <div id="container" class="defaultGrid">
 
   </div>
 
@@ -26,19 +26,23 @@
 
     if (enable) {
       createGrid(121);
-    } 
+    }
 
     function reset() {
-      document.getElementById('container').innerHTML="";
-      userInput = prompt('Please enter a number between 1 - to create new girds', '')
-      let gridWidth = 960 / userInput + 'px';
+      userInput = prompt('Please enter a number between 1 - 64 to create new girds', '')
+      container.classList.remove('defaultGrid');
+      container.innerHTML = '';
+      container.classList.add('newGrid');
+      let gridWidth = (880 / userInput) + 'px';
 
       for (i = 0; i < (userInput ** 2); i++) {
         let grids = document.createElement('div');
         grids.className = ('grids');
-        grids.style.height = (gridWidth);
-        grids.style.width = (gridWidth);
+        grids.style.height = ('100%');
+        grids.style.width = ('100%');
         grids.style.backgroundColor = 'orange';
+        container.style.gridTemplateColumns = `repeat(${userInput}, ${gridWidth})`;
+        container.style.gridTemplateRows = `repeat(${userInput}, ${gridWidth})`;
         container.appendChild(grids);
 
         grids.addEventListener('mouseenter', function () {
@@ -50,13 +54,15 @@
         });
       }
     }
+    
 
     function createGrid(num) {
+
       for (i = 0; i < num; i++) {
         let grids = document.createElement('div');
         grids.className = ('grids');
-        grids.style.width = ('80px');
-        grids.style.height = ('80px');
+        grids.style.width = ('100%');
+        grids.style.height = ('100%');
         grids.style.backgroundColor = 'orange';
         container.appendChild(grids);
 
